@@ -16,7 +16,7 @@ local ReGui = {
 	Version = "1.4.7",
 	Author = "Depso",
 	License = "MIT",
-	Repository = "https://github.com/depthso/Dear-ReGui/",
+	Repository = "https://github.com/x7dJJ9vnFH23/Dear-ReGui/",
 
 	--// Configuration
 	Debug = false,
@@ -57,28 +57,28 @@ local IDE = require("@lib/ide.lua")
 local Wrappers = require("@classes/Wrappers.lua")
 local Animation = require("@classes/Animations.lua")
 local Signaling = require("@classes/Signaling.lua")
-ReGui.DemoWindow = require("@src/Demo Window.lua")
-ReGui.Services = Wrappers.Services
-ReGui.Animation = Animation
+.DemoWindow = require("@src/Demo Window.lua")
+.Services = Wrappers.Services
+.Animation = Animation
 
 --// Configurations
-ReGui.Icons = require("@config/Icons.lua")
-ReGui.Accent = require("@config/Accent.lua")
-ReGui.ThemeConfigs = require("@config/Themes.lua")
-ReGui.ElementFlags = require("@config/Flags.lua")
+.Icons = require("@config/Icons.lua")
+.Accent = require("@config/Accent.lua")
+.ThemeConfigs = require("@config/Themes.lua")
+.ElementFlags = require("@config/Flags.lua")
 
 local Tags = require("@config/Tagging.lua")
-ReGui.ElementColors = Tags.Coloring
-ReGui.Animations = Tags.Animations
-ReGui.Styles = Tags.Styles
+.ElementColors = Tags.Coloring
+.Animations = Tags.Animations
+.Styles = Tags.Styles
 
 --// Call OnInit connections
-Wrappers:CallOnInitConnections(ReGui)
+Wrappers:CallOnInitConnections()
 
-ReGui.DynamicImages = {
-	[ReGui.Icons.Arrow] = "ImageFollowsText",
-	[ReGui.Icons.Close] = "ImageFollowsText",
-	[ReGui.Icons.Dot] = "ImageFollowsText",
+.DynamicImages = {
+	[.Icons.Arrow] = "ImageFollowsText",
+	[.Icons.Close] = "ImageFollowsText",
+	[.Icons.Dot] = "ImageFollowsText",
 }
 
 type table = { 
@@ -90,7 +90,7 @@ type TagsList = {
 
 --// Core functions 
 --// Services
-local Services = ReGui.Services
+local Services = .Services
 local HttpService = Services.HttpService
 local Players = Services.Players
 local UserInputService = Services.UserInputService
@@ -99,8 +99,8 @@ local InsertService = Services.InsertService
 
 --// LocalPlayer
 local LocalPlayer = Wrappers:NewReference(Players.LocalPlayer)
-ReGui.PlayerGui = Wrappers:NewReference(LocalPlayer.PlayerGui)
-ReGui.Mouse = Wrappers:NewReference(LocalPlayer:GetMouse())
+.PlayerGui = Wrappers:NewReference(LocalPlayer.PlayerGui)
+.Mouse = Wrappers:NewReference(LocalPlayer:GetMouse())
 
 local EmptyFunction = function() end
 
@@ -173,22 +173,22 @@ local function SortByQuery(Table: table, Query: string): table
 	return Sorted
 end
 
-function ReGui:Warn(...: string?)
-	warn("[ReGui]::", ...)
+function :Warn(...: string?)
+	warn("[]::", ...)
 end
 
-function ReGui:Error(...: string?)
-	local Concated = ReGui:Concat({...}, " ")
-	local Message = `\n[ReGui]:: {Concated}`
+function :Error(...: string?)
+	local Concated = :Concat({...}, " ")
+	local Message = `\n[]:: {Concated}`
 	coroutine.wrap(error)(Message)
 end
 
-function ReGui:IsDoubleClick(TickRange: number): boolean
+function :IsDoubleClick(TickRange: number): boolean
 	local ClickThreshold = self.DoubleClickThreshold
 	return TickRange < ClickThreshold
 end
 
-function ReGui:StyleContainers()
+function :StyleContainers()
 	local Container = self.Container
 	local Overlays = Container.Overlays
 	local Windows = Container.Windows
@@ -201,7 +201,7 @@ function ReGui:StyleContainers()
 	})
 end
 
-function ReGui:Init(Overwrites: table?)
+function :Init(Overwrites: table?)
 	Overwrites = Overwrites or {}
 
 	--// Check if the library has already initalised
@@ -272,7 +272,7 @@ function ReGui:Init(Overwrites: table?)
 		if not Visible then return end
 
 		--// Set frame position to mosue location
-		local X, Y = ReGui:GetMouseLocation()
+		local X, Y = :GetMouseLocation()
 		local Position = Overlays.AbsolutePosition
 
 		Tooltips.Position = UDim2.fromOffset(
@@ -285,7 +285,7 @@ function ReGui:Init(Overwrites: table?)
 	RunService.RenderStepped:Connect(InputUpdate)
 end
 
-function ReGui:CheckImportState()
+function :CheckImportState()
 	--// Check if the library has already initalised
 	if self.Initialised then return end
 
@@ -296,31 +296,31 @@ function ReGui:CheckImportState()
 		return Wrappers:NewReference(InsertService:LoadLocalAsset(PrefabsAssetUrl))
 	end)
 
-	--// Automatically load ReGui
+	--// Automatically load 
 	self:Init({
 		Prefabs = Success and Prefabs or nil
 	})
 end
 
-function ReGui:GetVersion(): string
+function :GetVersion(): string
 	return self.Version
 end
 
-function ReGui:IsMobileDevice(): boolean
+function :IsMobileDevice(): boolean
 	return UserInputService.TouchEnabled
 end
 
-function ReGui:IsConsoleDevice(): boolean
+function :IsConsoleDevice(): boolean
 	return UserInputService.GamepadEnabled
 end
 
-function ReGui:GetScreenSize(): Vector2
+function :GetScreenSize(): Vector2
 	return workspace.CurrentCamera.ViewportSize
 end
 
-function ReGui:LoadPrefabs(): Folder?
+function :LoadPrefabs(): Folder?
 	local PlayerGui = self.PlayerGui
-	local Name = "ReGui-Prefabs"
+	local Name = "-Prefabs"
 
 	--// Check script for prefabs
 	local ScriptUi = script:WaitForChild(Name, 2)
@@ -333,11 +333,11 @@ function ReGui:LoadPrefabs(): Folder?
 	return nil
 end
 
-function ReGui:CheckConfig(Source: table, Base: table, Call: boolean?, IgnoreKeys: table?)
+function :CheckConfig(Source: table, Base: table, Call: boolean?, IgnoreKeys: table?)
 	return Wrappers:CheckConfig(Source, Base, Call, IgnoreKeys)
 end
 
-function ReGui:CreateInstance(Class, Parent, Properties): Instance
+function :CreateInstance(Class, Parent, Properties): Instance
 	local Object = Instance.new(Class, Parent)
 
 	--// Apply Properties
@@ -357,7 +357,7 @@ function ReGui:CreateInstance(Class, Parent, Properties): Instance
 	return Object
 end
 
-function ReGui:ConnectMouseEvent(Object: GuiButton, Config)
+function :ConnectMouseEvent(Object: GuiButton, Config)
 	local Callback = Config.Callback
 	local DoubleClick = Config.DoubleClick
 	local OnlyMouseHovering = Config.OnlyMouseHovering
@@ -378,7 +378,7 @@ function ReGui:ConnectMouseEvent(Object: GuiButton, Config)
 
 		--// DoubleClick
 		if DoubleClick then
-			if not ReGui:IsDoubleClick(ClickRange) then
+			if not :IsDoubleClick(ClickRange) then
 				LastClick = ClickTick
 				return
 			end
@@ -389,11 +389,11 @@ function ReGui:ConnectMouseEvent(Object: GuiButton, Config)
 	end)
 end
 
-function ReGui:GetAnimation(Animate: boolean?)
+function :GetAnimation(Animate: boolean?)
 	return Animate and self.Animation or TweenInfo.new(0)
 end
 
-function ReGui:DynamicImageTag(Object: Instance, Image: string, WindowClass: table)
+function :DynamicImageTag(Object: Instance, Image: string, WindowClass: table)
 	local Tags = self.DynamicImages
 	local Tag = Tags[Image]
 
@@ -405,7 +405,7 @@ function ReGui:DynamicImageTag(Object: Instance, Image: string, WindowClass: tab
 	})
 end
 
-function ReGui:GetDictSize(Dict: table): number
+function :GetDictSize(Dict: table): number
 	local Count = 0
 	for Key, Value in Dict do
 		Count += 1
@@ -413,7 +413,7 @@ function ReGui:GetDictSize(Dict: table): number
 	return Count
 end
 
-function ReGui:RemoveAnimations(Object: GuiObject)
+function :RemoveAnimations(Object: GuiObject)
 	local Data = self:GetAnimationData(Object)
 	local Connections = Data.Connections
 
@@ -423,7 +423,7 @@ function ReGui:RemoveAnimations(Object: GuiObject)
 	end
 end
 
-function ReGui:GetAnimationData(Object: GuiObject): table
+function :GetAnimationData(Object: GuiObject): table
 	local Connections = self.AnimationConnections
 	local Existing = Connections[Object]
 
@@ -438,18 +438,18 @@ function ReGui:GetAnimationData(Object: GuiObject): table
 	return Data
 end
 
-function ReGui:AddAnimationSignal(Object: GuiObject, Connection: RBXScriptSignal)
+function :AddAnimationSignal(Object: GuiObject, Connection: RBXScriptSignal)
 	local Data = self:GetAnimationData(Object)
 	local Connections = Data.Connections
 
 	table.insert(Connections, Connection)
 end
 
-function ReGui:SetAnimationsEnabled(Enabled: boolean)
+function :SetAnimationsEnabled(Enabled: boolean)
 	self.NoAnimations = not Enabled
 end
 
-function ReGui:SetAnimation(Object: GuiObject, Reference: (string|table), Listener: GuiObject?)
+function :SetAnimation(Object: GuiObject, Reference: (string|table), Listener: GuiObject?)
 	Listener = Listener or Object
 
 	local Animations = self.Animations
@@ -554,7 +554,7 @@ export type ConnectDrag = {
 	DragEnd: () -> nil,
 	DragMovement: () -> nil,
 }
-function ReGui:ConnectDrag(Frame: GuiObject, Data)
+function :ConnectDrag(Frame: GuiObject, Data)
 	self:CheckConfig(Data, {
 		DragStart = EmptyFunction,
 		DragEnd = EmptyFunction,
@@ -650,7 +650,7 @@ type MakeDraggableFlags = {
 	StateChanged: ((MakeDraggableFlags) -> any)?,
 	OnDragStateChange: ((IsDragging: boolean) -> any)?,
 }
-function ReGui:MakeDraggable(Config: MakeDraggableFlags)
+function :MakeDraggable(Config: MakeDraggableFlags)
 	--// Unpack config
 	local Move = Config.Move
 	local Grab = Config.Grab
@@ -745,8 +745,8 @@ export type MakeResizableFlags = {
 	Resize: Instance,
 	OnUpdate: (UDim2) -> ...any
 }
-function ReGui:MakeResizable(Config: MakeResizableFlags)
-	ReGui:CheckConfig(Config, {
+function :MakeResizable(Config: MakeResizableFlags)
+	:CheckConfig(Config, {
 		MinimumSize = Vector2.new(160, 90),
 		MaximumSize = Vector2.new(math.huge, math.huge)
 	})
@@ -760,7 +760,7 @@ function ReGui:MakeResizable(Config: MakeResizableFlags)
 	local SizeOrgin = nil
 
 	--// Create grab element
-	local Grab = ReGui:InsertPrefab("ResizeGrab", {
+	local Grab = :InsertPrefab("ResizeGrab", {
 		Parent = Resize
 	})
 
