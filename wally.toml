@@ -3,10 +3,11 @@ name = "depthso/regui"
 description = "A retained recreation of ImGui for Roblox"
 version = "1.4.0"
 license = "MIT"
-registry = "https://github.com/depthso/Dear-ReGui"
+registry = "https://github.com/x7dJJ9vnFH23/Dear-ReGui"
 homepage = "https://depso.gitbook.io/regui"
 include = ["lib", "ReGui.lua", "LICENSE"]
 authors = ["depso <depthso>"]
 realm = "shared"
+
 
 [dependencies]
