@@ -14,7 +14,7 @@
 local ReGui = {
 	--// Package data
 	Version = "1.4.7",
-	Author = "Depso",
+	Author = "x7dJJ9vnFH23",
 	License = "MIT",
 	Repository = "https://github.com/x7dJJ9vnFH23/Dear-ReGui/",
 
